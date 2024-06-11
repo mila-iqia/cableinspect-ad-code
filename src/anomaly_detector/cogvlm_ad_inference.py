@@ -7,6 +7,7 @@ from src.anomaly_detector.base_anomaly_detector_inference import (
     BaseAnomalyDetector,
 )
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import BitsAndBytesConfig
 
 
 class CogVLM_AD(BaseAnomalyDetector):
@@ -31,16 +32,16 @@ class CogVLM_AD(BaseAnomalyDetector):
         )
 
         # Load the model
+        quantization_config = BitsAndBytesConfig(load_in_4bit=True)
         self.model = (
             AutoModelForCausalLM.from_pretrained(
                 self.model_id,
                 torch_dtype=torch.bfloat16,
                 low_cpu_mem_usage=True,
                 trust_remote_code=True,
+                quantization_config=quantization_config,
             )
-            .to(self.device)
-            .eval()
-        )
+        ).eval()
 
     def inputs_collate_fn(self, features: list) -> dict:
         """

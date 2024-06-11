@@ -15,9 +15,9 @@ CableInspect-AD
     ├── cable_2_seg.json
     ├── cable_3.json
     ├── cable_3_seg.json
-    ├── cable_1
-    ├── cable_2
-    ├── cable_3
+    ├── Cable_1
+    ├── Cable_2
+    ├── Cable_3
     ├── licence.txt
     └── readme.txt
 ```

@@ -38,8 +38,15 @@ pytest tests/
 ```
 
 ## Usage
+
+### Perform inference with a VLM
+
+```bash 
+python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
+```
+
 ### Calculate Anomaly Score (VQAScore)
 
 ```bash 
-python scripts/cogvlm_vqascore.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv
+python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
 ```

@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import numpy as np
 from src.anomaly_detector import (
-    CogVLM_AD,
+    LLaVA_AD,
 )
 
 def main() -> None:
@@ -14,12 +14,12 @@ def main() -> None:
     test_csv= args.test_csv
     data_path = Path(args.data_path)
     batch_size = args.batch_size
+    generate_scores = args.generate_scores
     out_csv =  args.out_csv
 
     model_config = {
-        "model_name": "CogVLM",
-        "model_id": "THUDM/cogvlm-chat-hf",
-        "tokenizer_id": "lmsys/vicuna-7b-v1.5",
+        "model_name": "LLaVA",
+        "model_id": "llava-hf/llava-1.5-13b-hf",
     }
     scoring_config = {
         "scoring_prompt": "Does this figure show an anomalous or defective cable? Please answer Yes or No.",
@@ -28,12 +28,13 @@ def main() -> None:
     }
     prompt_type = "zero_shot"
     prompt_file = "scripts/prompts.yaml"
-    ad_model = CogVLM_AD(Path(prompt_file), prompt_type, model_config, scoring_config)
+    ad_model = LLaVA_AD(Path(prompt_file), prompt_type, model_config, scoring_config)
     test_df = pd.read_csv(test_csv)
 
     anomaly_score_list = []
     labels_targets = []
     object_categories =[]
+    output_list = []
 
     for i in tqdm(range(len(test_df))):
 
@@ -56,17 +57,23 @@ def main() -> None:
                 # wait until the batch is full and the last image is processed
                 continue
 
-            scores = ad_model.generate_score(images)
-            anomaly_score_list.extend(scores)
+            if generate_scores:
+                scores = ad_model.generate_score(images)
+                anomaly_score_list.extend(scores)
+            else:
+                batch_outputs = ad_model.run_model(image_path_list ,images)
+                output_list.extend(batch_outputs)
 
     test_df["object_category"] = pd.Series(object_categories)
     test_df["label_targets"] = pd.Series(labels_targets)
-    test_df["anomaly_score"] = pd.Series(anomaly_score_list)
-    # 
+    if generate_scores:
+        test_df["anomaly_score"] = pd.Series(anomaly_score_list)
+    else:
+        test_df["output"] = pd.Series(output_list)
     test_df.to_csv(out_csv, index=False)
 
 def parse_args() -> argparse.Namespace:
-    description = "Zero-shot AD using CogVLM for a series of images."
+    description = "Zero-shot AD using LLaVA13B for a series of images."
     arg_parser = argparse.ArgumentParser(
         description=description, formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
@@ -88,10 +95,15 @@ def parse_args() -> argparse.Namespace:
         default=4,
         help="size for parallel batched inference",
     )
-   
+    arg_parser.add_argument(
+        "--generate-scores",
+        type=bool,
+        default=False,
+        help="whether to generate anomaly scores (vqascore)",
+    )
     arg_parser.add_argument(
         "--out-csv",
-        default="cables_cogvlm_zero_shot_vqascore.csv",
+        default="cables_llava13b_zero_shot_vqascore.csv",
         type=str,
         help="path to the output csv file to save results",
     )

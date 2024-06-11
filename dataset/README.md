@@ -36,7 +36,7 @@ This will create in the `CableInspect-AD` directory with the following structure
 
 ```text
 CableInspect-AD
-    └── cable_1
+    └── Cable_1
         └──images
             └── 01
                 └──*.png
@@ -47,9 +47,9 @@ CableInspect-AD
         └──masks
             └── 01
                 └──*.png
-        └──  cable_2
+        └── Cable_2
             └── ...
-        └── cable_3
+        └── Cable_3
             └── ...
         ├── labels.csv
         ├── k_fold_labels

@@ -1,5 +1,13 @@
 # CableInspect-AD: An Expert-Annotated Anomaly Detection Dataset
 
+[Mila - Quebec AI Institute](https://mila.quebec/en/industry-services) & [Institut de recherche d'Hydro-Québec]()
+
+Akshatha Arodi\*, Margaux Luck\*, Jean-Luc Bedwani, Aldo Zaimi, Ge Li, Nicolas Pouliot, Julien Beaudry, Gaétan Marceau Caron
+
+\*Denotes equal contribution
+
+[[Paper]()] [[Project](https://mila-iqia.github.io/cableinspect-ad/#)] [[Dataset]()] [[Bibtex]()]
+
 ## Installation
 
 To setup the environment:
@@ -50,3 +58,6 @@ python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
 ```
+
+
+

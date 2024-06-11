@@ -1,0 +1,8 @@
+gitpython
+ipykernel
+ipympl
+ipywidgets
+jupyterlab
+mycolorpy
+notebook
+tensorboardX

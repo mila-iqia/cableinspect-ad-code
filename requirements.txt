@@ -19,3 +19,5 @@ accelerate==0.25.0
 ninja
 flash-attn==2.5.8
 xtuner
+networkx
+PyYAML

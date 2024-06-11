@@ -32,14 +32,14 @@ if __name__ == "__main__":
     data_folder = args.data_folder
 
     # Create masks folder
-    cables = ["cable_1", "cable_2", "cable_3"]
+    cables = ["Cable_1", "Cable_2", "Cable_3"]
     for cable in cables:
         masks_dir = os.path.join(data_folder, f"{cable}/masks/01")
         Path(masks_dir).mkdir(parents=True, exist_ok=True)
 
     for cable in cables:
         print(f"Building masks for {cable}")
-        coco = COCO(os.path.join(data_folder, f"{cable}_seg.json"))
+        coco = COCO(os.path.join(data_folder, f"{cable.lower()}_seg.json"))
         cat_ids = coco.getCatIds()
         img_ids = coco.getImgIds()
 

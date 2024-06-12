@@ -26,17 +26,17 @@ cableinspect-ad-code/
 │   ├── cogvlm_ad.py                            # Inference script for CogVLM
 │   ├── llava13b_ad.py                          # Inference script for LLaVA-13B
 │   └── ...
-├── src/                                        # Code for models
-│   ├── anomaly_detector/                       # VLMs and WinCLIP
-│   │   ├── README.md                           # Documentation of the module
-│   │   ├── generate_winclip_score.py           # Script to run winclip
+├── src/                                        
+│   ├── anomaly_detector/                       # Code for VLMs and WinCLIP
+│   │   ├── README.md                           # Documentation of the models
+│   │   ├── generate_winclip_score.py           # Script to run WinCLIP
 │   │   ├── cogvlm_ad_inference.py              # Script to run CogVLM
 │   │   ├── llava_ad_inference.py               # Script to run LLaVA
 │   │   ├── evaluate.ipynb                      # Notebook to generate threshold-independant metrics
 │   │   └── ...
 │   ├── enhanced-patchcore/                     # Code for Enhanced-PatchCore
 │   │   ├── notebooks/                          # Notebooks for data visualization and results
-│   │   ├── README.md                           # Documentation of the module
+│   │   ├── README.md                           # Documentation of Enhanced-PatchCore
 │   │   ├── postprocessing/                     # Script for postprocessing
 │   │   ├── tools/
 │   │   │   ├── hq_patchcore_kfold_kshot.sh     # Bash script for running the model
@@ -51,7 +51,7 @@ cableinspect-ad-code/
 - [Dataset](#dataset)
 - [Usage](#usage)
 - [Enhanced-PatchCore](src/enhanced-patchcore/README.md)
-- [Results]
+- [Results](#results)
 
 ## Installation
 
@@ -91,7 +91,7 @@ pytest tests/
 ```
 
 ## Dataset
-We provide code for the generation of labels and masks. After downloading the dataset from the [project website](https://mila-iqia.github.io/cableinspect-ad/), follow the instructions [here](dataset/README.md)
+We provide code for the generation of labels and masks. After downloading the images and annotation files from the [project website](https://mila-iqia.github.io/cableinspect-ad/), follow the instructions [here](dataset/README.md).
 
 ## Usage
 
@@ -118,9 +118,7 @@ The instructions on installation and usage are provided [here](src/enhanced-patc
 
 ## Results
 
-The results are shown here:
-
-## Performance Metrics at Image-Level
+### Performance Metrics at Image-Level
 
 Mean and standard deviation are calculated across all cables after averaging over all folds. VLMs and WinCLIP are evaluated in a zero-shot setting, while *Enhanced-PatchCore* is evaluated in a 100-shot setting using the *beta-prime-95* thresholding strategy. Thresholded-metrics are not reported for WinCLIP since it necessitates a validation set.
 

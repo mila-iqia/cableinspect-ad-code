@@ -33,7 +33,7 @@ Install the dependancies:
 pip install -r requirements.txt
 ```
 
-Then nstall the package:
+Then install the package:
 ```bash
 pip install -e .
 ```
@@ -47,17 +47,19 @@ pytest tests/
 
 ## Usage
 
-### Perform inference with a VLM
+### To perform inference with a VLM
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
 ```
 
-### Calculate Anomaly Score (VQAScore)
+### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its raw inference csv output
+```bash 
+python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfold-dir DATA_PATH/k_fold_labels --output-csv-filename cables_vlm_kfold_metrics.csv
+```
+
+### To calculate Anomaly Score (VQAScore)
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
 ```
-
-
-

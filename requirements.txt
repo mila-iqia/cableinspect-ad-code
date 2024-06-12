@@ -21,3 +21,4 @@ flash-attn==2.5.8
 xtuner
 networkx
 PyYAML
+opencv-python

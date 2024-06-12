@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 We install the [anomalib library](https://github.com/openvinotoolkit/anomalib/) and run WinCLIP:
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/winclip.txt
 ```
 
 Generate anomaly scores from WinCLIP using the script.

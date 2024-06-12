@@ -35,8 +35,8 @@ cableinspect-ad-code/
 │   │   ├── evaluate.ipynb                      # Notebook to generate threshold-independant metrics
 │   │   └── ...
 │   ├── enhanced-patchcore/                     # Code for Enhanced-PatchCore
-│   │   ├── notebooks/                          # Notebooks for data visualization and results
 │   │   ├── README.md                           # Documentation of Enhanced-PatchCore
+│   │   ├── notebooks/                          # Notebooks for data visualization and results
 │   │   ├── postprocessing/                     # Script for postprocessing
 │   │   ├── tools/
 │   │   │   ├── hq_patchcore_kfold_kshot.sh     # Bash script for running the model
@@ -46,14 +46,25 @@ cableinspect-ad-code/
 ```
 
 ## Table of Contents
-
-- [Installation](#installation)
 - [Dataset](#dataset)
-- [Usage](#usage)
 - [Enhanced-PatchCore](src/enhanced-patchcore/README.md)
+- [Vision-Language Models](#vision-language-models)
+  - [Installation](#installation)
+  - [Usage](#usage)
 - [Results](#results)
 
-## Installation
+## Dataset
+We provide code for the generation of labels and masks. After downloading the images and annotation files from the [project website](https://mila-iqia.github.io/cableinspect-ad/), follow the instructions [here](dataset/README.md).
+
+## Enhanced-PatchCore
+
+The instructions on installation and usage are provided [here](src/enhanced-patchcore/README.md). We also provide notebooks for results and dataset visualization.
+
+## Vision-Language Models
+
+We provide inference scripts to evaluate all the Vision-Language Models (VLMs) that we report in the paper. We also include WinCLIP in our evaluation and provide inference scripts.
+
+### Installation
 
 To setup the environment:
 ```bash
@@ -90,31 +101,24 @@ pip install pytest
 pytest tests/
 ```
 
-## Dataset
-We provide code for the generation of labels and masks. After downloading the images and annotation files from the [project website](https://mila-iqia.github.io/cableinspect-ad/), follow the instructions [here](dataset/README.md).
+### Usage
 
-## Usage
-
-### To perform inference with a VLM
+#### To perform inference with a VLM
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
 ```
 
-### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its raw inference csv output
+#### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its raw inference csv output
 ```bash 
 python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfold-dir DATA_PATH/k_fold_labels --output-csv-filename cables_vlm_kfold_metrics.csv
 ```
 
-### To calculate Anomaly Score (VQAScore)
+#### To calculate Anomaly Score (VQAScore)
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
 ```
-
-## Enhanced-PatchCore
-
-The instructions on installation and usage are provided [here](src/enhanced-patchcore/README.md). We also provide notebooks for results and dataset visualization.
 
 ## Results
 

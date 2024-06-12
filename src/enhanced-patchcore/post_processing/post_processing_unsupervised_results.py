@@ -263,8 +263,6 @@ if __name__ == "__main__":
         print(f"Using the dataset stored in: {data_directory}")
         # Load data labels
         labels = pd.read_csv(os.path.join(data_directory, "labels.csv"))
-        if "/hq/" in data_directory:
-            labels["anomaly_type_grade"] = labels["anomaly_type"].copy() + " " + labels["anomaly_grade"].copy()
 
         # List all runs directories
         runs_directories = glob.glob(f"{experiment_directory}/*/")
@@ -273,8 +271,6 @@ if __name__ == "__main__":
             # Generate anomaly IDs level predictions
             predictions_fname = os.path.join(run_directory, "test_image_predictions.csv")
             if os.path.isfile(predictions_fname):
-                if "/hq/" in data_directory:
-                    generate_and_save_anomaly_ids_level_predictions(labels, run_directory, predictions_fname)
                 generate_and_save_thresholded_prediction_stats(
                     percentile_threshold, run_directory, predictions_fname, threshold_types, log_directory
                 )

@@ -33,7 +33,7 @@ Install the dependancies:
 pip install -r requirements.txt
 ```
 
-Then nstall the package:
+Then install the package:
 ```bash
 pip install -e .
 ```
@@ -47,68 +47,19 @@ pytest tests/
 
 ## Usage
 
-### Perform inference with a VLM
+### To perform inference with a VLM
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
 ```
 
-### Calculate Anomaly Score (VQAScore)
+### To calculate Anomaly Score (VQAScore)
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
 ```
 
-
-
-
-## Installation
-
-To setup the environment:
-```bash
-conda create -n ad_env python=3.10
-conda activate ad_env
-```
-We need to set these environment variables before installing torch.
-```bash
-envPath=$(conda info --envs | grep ad_env | awk '{print $NF}')
-export CUDA_HOME=$envPath
-```
-Install cudatoolkit
-```bash
-conda install nvidia/label/cuda-12.0.0::cuda-toolkit
-```
-To verify the installation, run the following:
-```bash
-nvcc --version
-```
-Install the dependancies:
-```bash
-pip install -r requirements.txt
-```
-
-Then nstall the package:
-```bash
-pip install -e .
-```
-
-### Pytest
-```bash
-pip install pytest
-
-pytest tests/
-```
-
-## Usage
-
-### Perform inference with a VLM
-
+### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its inference csv output
 ```bash 
-python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
-```
-
-### Calculate Anomaly Score (VQAScore)
-
-```bash 
-python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
+python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfold-dir PATH_TO_VLM_KFOLD_LABELS --output-csv-filename cables_cogvlm2_kfold_metrics.csv
 ```

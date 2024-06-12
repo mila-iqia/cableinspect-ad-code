@@ -263,7 +263,8 @@ if __name__ == "__main__":
         print(f"Using the dataset stored in: {data_directory}")
         # Load data labels
         labels = pd.read_csv(os.path.join(data_directory, "labels.csv"))
-        labels["anomaly_type_grade"] = labels["anomaly_type"].copy() + " " + labels["anomaly_grade"].copy()
+        if "/hq/" in data_directory:
+            labels["anomaly_type_grade"] = labels["anomaly_type"].copy() + " " + labels["anomaly_grade"].copy()
 
         # List all runs directories
         runs_directories = glob.glob(f"{experiment_directory}/*/")

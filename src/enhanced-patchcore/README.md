@@ -16,7 +16,7 @@ bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda3
 conda update conda
 conda create -n anomalib_env python=3.10
 conda activate anomalib_env
-cd cableinspect-ad-code/enhanced-patchcore
+cd cableinspect-ad-code/src/enhanced-patchcore
 pip install -e .
 pip install -r requirements/openvino.txt
 pip install -r requirements/notebooks.txt
@@ -81,8 +81,9 @@ The bash scripts support the following experiments:
 **K-Fold:**
 
 ```bash
-bash experiments/tools/local/hq_patchcore_kfold.sh
+bash experiments/tools/hq_patchcore_kfold_kshot.sh
 ```
+This runs experiments with the configurations specified in the `experiments/configs/hq_patchcore_kfold_kshot.yaml`. We use orion to run experiments on all k-shots as shown in an example config. The cables and other configuration are to be updated in the configuration files.
 
 ## Results
 
@@ -94,16 +95,16 @@ The predictions are stored in the `$RESULTS` folder defined in the bash script. 
 - Weights: Contains the best model weights `weights/lightning/model.ckpt`.
 - Scores: The metric scores on the test set are saved in the file `logs/lightning_logs/version_0/metrics.csv`.
 
-Incase of unsupervised learning, there is no validation set and the validation is run on the train set. Therefore, the validation prediction files in this setup corresponds to the anomaly scores on the train set.
+In case of unsupervised learning, there is no validation set and the validation is run on the train set. Therefore, the validation prediction files in this setup corresponds to the anomaly scores on the train set.
 
 To visualize the image predictions for a specific run in more detail, use the notebook `notebooks/image_prediction_stats.ipynb`.
 
 To visualize the aggregated results of the unsupervised k-fold experiments over all the anomaly groups, first generate the `aggregated_results.csv` file in the experiments folder by running from the folder `post_processing`:
 
 ```bash
-DATA_DIR=$HOME/hq/preprocess_data/tight_crop
+DATA_DIR=$HOME/CableInspect-AD
 RESULTS_DIR=$HOME/results
-EXP_DIR=$RESULTS_DIR/patchcore/hq/hq_kfold_unsupervised_C01
+EXP_DIR=$RESULTS_DIR/patchcore/hq/hq_kfold_unsupervised_cbl-C01_anomaly_group_id-0_k-10_shot
 python post_processing_unsupervised_results.py --data-directory $DATA_DIR --experiment-directory $EXP_DIR
 ```
 

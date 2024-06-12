@@ -53,13 +53,13 @@ pytest tests/
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
 ```
 
+### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its raw inference csv output
+```bash 
+python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfold-dir DATA_PATH/k_fold_labels --output-csv-filename cables_vlm_kfold_metrics.csv
+```
+
 ### To calculate Anomaly Score (VQAScore)
 
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
-```
-
-### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its inference csv output
-```bash 
-python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfold-dir PATH_TO_VLM_KFOLD_LABELS --output-csv-filename cables_cogvlm2_kfold_metrics.csv
 ```

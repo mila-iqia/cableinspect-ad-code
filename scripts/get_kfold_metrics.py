@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 import pandas as pd
-from src.anomaly_detector.evaluation_utils import compute_metrics
+from src.anomaly_detector.evaluation_utils import compute_metrics, filter_img_duplicates
 
 
 def extract_info_from_filename(filename: str) -> dict | None:
@@ -77,17 +77,33 @@ def main():
         default="vlm_kfold_metrics.csv",
         help="the filename for the output CSV to save metrics per test fold",
     )
+    parser.add_argument(
+        "--filter-duplicates",
+        type=bool,
+        required=False,
+        default=True,
+        help="whether to remove image row duplicates in the input vlm csv file",
+    )
 
     args = parser.parse_args()
 
     vlm_csv = Path(args.vlm_csv)
     kfold_dir = Path(args.kfold_dir)
     output_csv_path = args.output_csv_filename
+    filter_duplicates = args.filter_duplicates
 
     kfold_dir_str = str(kfold_dir)
     pattern = kfold_dir_str + "/**/*.csv"
 
-    df_vlm = pd.read_csv(vlm_csv)
+    if filter_duplicates:
+        filter_img_duplicates(vlm_csv)
+        base_name = vlm_csv.stem
+        new_file_name = f"{base_name}_filter{vlm_csv.suffix}"
+        filtered_csv_path = vlm_csv.parent / new_file_name
+        df_vlm = pd.read_csv(filtered_csv_path)
+    else:
+        df_vlm = pd.read_csv(vlm_csv)
+
     results = []
 
     for kfold_file_path in glob.glob(pattern, recursive=True):

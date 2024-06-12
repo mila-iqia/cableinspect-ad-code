@@ -17,6 +17,6 @@ export RESULTS=$HOME/results
 python generate_winclip_score.py --dataset-path $DATASET_PATH --output-path $RESULTS
 ```
 # Evaluation
-The metrics can be generated using the `evaluate_winclipo.ipynb` notebook for all the VLMs and WinCLIP.
+The metrics can be generated using the `evaluate.ipynb` notebook for all the VLMs and WinCLIP.
 
 To generate the AUPRO metric, we follow the method [here](https://github.com/caoyunkang/WinClip/blob/master/README.md)

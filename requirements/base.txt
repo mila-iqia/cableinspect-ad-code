@@ -1,6 +1,0 @@
-opencv-python
-pandas
-pycocotools
-tqdm
-networkx
-PyYAML

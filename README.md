@@ -23,16 +23,16 @@ cableinspect-ad-code/
 ├── scripts/                                    # Scripts to run all the VLMs
 │   ├── get_kfold_metrics.py                    # Generate threshold-dependant metrics
 │   ├── prompts.yaml                            # Prompt for the VLMs
+│   ├── generate_winclip_score.py               # Script to run WinCLIP
+│   ├── evaluate.ipynb                          # Notebook to generate threshold-independant metrics
 │   ├── cogvlm_ad.py                            # Inference script for CogVLM
 │   ├── llava13b_ad.py                          # Inference script for LLaVA-13B
 │   └── ...
 ├── src/                                        
 │   ├── anomaly_detector/                       # Code for VLMs and WinCLIP
 │   │   ├── README.md                           # Documentation of the models
-│   │   ├── generate_winclip_score.py           # Script to run WinCLIP
 │   │   ├── cogvlm_ad_inference.py              # Script to run CogVLM
 │   │   ├── llava_ad_inference.py               # Script to run LLaVA
-│   │   ├── evaluate.ipynb                      # Notebook to generate threshold-independant metrics
 │   │   └── ...
 │   ├── enhanced-patchcore/                     # Code for Enhanced-PatchCore
 │   │   ├── README.md                           # Documentation of Enhanced-PatchCore
@@ -49,6 +49,9 @@ cableinspect-ad-code/
 - [Dataset](#dataset)
 - [Enhanced-PatchCore](src/enhanced-patchcore/README.md)
 - [Vision-Language Models](#vision-language-models)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [WinCLIP](#winclip)
   - [Installation](#installation)
   - [Usage](#usage)
 - [Results](#results)
@@ -119,6 +122,38 @@ python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfo
 ```bash 
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_vqascore.csv --generate-scores True
 ```
+
+## WinCLIP
+
+We evaluate WinCLIP on detection and segmentation tasks and generate threshold-independant metrics.
+
+### Installation
+
+We install the [anomalib library](https://github.com/openvinotoolkit/anomalib/) to evaluate WinCLIP.
+
+To setup the environment:
+```bash
+conda create -n winclip_env python=3.10
+conda activate winclip_env
+```
+
+```bash
+pip install anomalib
+anomalib install
+```
+
+### Usage
+
+Generate anomaly scores from WinCLIP using the script.
+```bash
+export DATASET_PATH=$HOME/CableInspect-AD
+export RESULTS=$HOME/results
+python scripts/winclip_ad.py --dataset-path $DATASET_PATH --output-path $RESULTS
+```
+### Evaluation
+The metrics can be generated using the `scripts/evaluate.ipynb` notebook for all the VLMs and WinCLIP.
+
+To generate the AUPRO metric, we follow the method [here](https://github.com/caoyunkang/WinClip/blob/master/README.md)
 
 ## Results
 

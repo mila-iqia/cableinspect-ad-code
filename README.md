@@ -6,7 +6,7 @@ Akshatha Arodi\*, Margaux Luck\*, Jean-Luc Bedwani, Aldo Zaimi, Ge Li, Nicolas P
 
 \*Denotes equal contribution
 
-[[Paper]()] [[Project](https://mila-iqia.github.io/cableinspect-ad/#)] [[Dataset]()] [[Bibtex]()]
+[[Paper]()] [[Project](https://mila-iqia.github.io/cableinspect-ad/#)] [[Dataset](https://drive.google.com/file/d/126i30i7dRkcf4E5k7x8yysay3Snv6NXv/view)] [[Bibtex]()]
 
 The repository has the following structure.
 
@@ -23,7 +23,7 @@ cableinspect-ad-code/
 ├── scripts/                                    # Scripts to run all the VLMs
 │   ├── get_kfold_metrics.py                    # Generate threshold-dependant metrics
 │   ├── prompts.yaml                            # Prompt for the VLMs
-│   ├── generate_winclip_score.py               # Script to run WinCLIP
+│   ├── winclip_ad.py                           # Script to run WinCLIP
 │   ├── evaluate.ipynb                          # Notebook to generate threshold-independant metrics
 │   ├── cogvlm_ad.py                            # Inference script for CogVLM
 │   ├── llava13b_ad.py                          # Inference script for LLaVA-13B
@@ -52,8 +52,8 @@ cableinspect-ad-code/
   - [Installation](#installation)
   - [Usage](#usage)
 - [WinCLIP](#winclip)
-  - [Installation](#installation)
-  - [Usage](#usage)
+  - [Installation](#winclip-installation)
+  - [Usage](#winclip-usage)
 - [Results](#results)
 
 ## Dataset
@@ -127,7 +127,7 @@ python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-
 
 We evaluate WinCLIP on detection and segmentation tasks and generate threshold-independant metrics.
 
-### Installation
+### WinCLIP Installation
 
 We install the [anomalib library](https://github.com/openvinotoolkit/anomalib/) to evaluate WinCLIP.
 
@@ -142,7 +142,7 @@ pip install anomalib
 anomalib install
 ```
 
-### Usage
+### WinCLIP Usage
 
 Generate anomaly scores from WinCLIP using the script.
 ```bash

@@ -5,6 +5,17 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # CableInspect-AD Dataset
 
+Download the dataset and extract files:
+
+```bash
+wget https://hydroquebec.com/data/documents-donnees/donnees-ouvertes/zip/CableInspect-AD.zip
+unzip CableInspect-AD.zip
+cd CableInspect-AD
+tar -xzvf cable_1.tar.gz && rm cable_1.tar.gz
+tar -xzvf cable_2.tar.gz && rm cable_2.tar.gz
+tar -xzvf cable_3.tar.gz && rm cable_3.tar.gz
+```
+
 The `CableInspect-AD` dataset folder is structured as follows:
 
 ```text

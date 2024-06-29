@@ -1,7 +1,7 @@
 """Get configurable parameters."""
 
 # Copyright (C) 2022 Intel Corporation
-# Modifications copyright (C) 2022 Mila - Institut québécois d'intelligence artificielle
+# Modifications copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
 # SPDX-License-Identifier: Apache-2.0
 
 # TODO: This would require a new design.

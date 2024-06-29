@@ -1,1 +1,3 @@
+# Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
+# SPDX-License-Identifier: Apache-2.0
 zero_shot: "Is there an anomaly or defect in the image? Answer by either Yes or No."

@@ -1,6 +1,6 @@
 """Feature extractor for ViT models."""
 
-# Copyright (C) 2022 Mila - Institut québécois d'intelligence artificielle
+# Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations

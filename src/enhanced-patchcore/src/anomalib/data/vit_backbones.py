@@ -1,6 +1,6 @@
 """Utility to get the list of supported ViT backbones."""
 
-# Copyright (C) 2022 Mila - Institut québécois d'intelligence artificielle
+# Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
 # SPDX-License-Identifier: Apache-2.0
 
 VIT_BACKBONES = [

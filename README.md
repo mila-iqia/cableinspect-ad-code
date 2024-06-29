@@ -1,3 +1,8 @@
+<!---
+Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # CableInspect-AD: An Expert-Annotated Anomaly Detection Dataset
 
 [Mila - Quebec AI Institute](https://mila.quebec/en/industry-services) & [Institut de recherche d'Hydro-Québec]()

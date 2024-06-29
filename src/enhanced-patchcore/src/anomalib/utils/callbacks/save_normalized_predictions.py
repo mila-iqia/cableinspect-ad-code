@@ -6,7 +6,7 @@ Similar to SavePredictionsCallback. This was added for two reasons:
     2. For min max normalization, min and max are saved after normalization
 """
 
-# Copyright (C) 2022 Mila - Institut québécois d'intelligence artificielle
+# Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations

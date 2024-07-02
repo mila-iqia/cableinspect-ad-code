@@ -2,7 +2,7 @@
 
 """Gather the results of an unsupervised kfold experiment."""
 
-# Copyright (C) 2022 Mila - Institut québécois d'intelligence artificielle
+# Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
 # SPDX-License-Identifier: Apache-2.0
 
 import glob

@@ -1,3 +1,8 @@
+<!---
+Copyright (C) 2022 Intel Corporation
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # PatchCore
 
 This is the implementation of the [PatchCore](https://arxiv.org/pdf/2106.08265.pdf) paper.

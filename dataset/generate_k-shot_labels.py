@@ -3,7 +3,7 @@
 """Generate labels for the few, many and full shot experiments for the CableInspect-AD dataset."""
 
 # Copyright (C) 2024 Mila - Institut québécois d'intelligence artificielle
-# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-License-Identifier: Apache-2.0
 
 import os
 import time

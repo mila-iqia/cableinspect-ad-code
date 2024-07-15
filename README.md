@@ -5,13 +5,13 @@ SPDX-License-Identifier: Apache-2.0
 
 # CableInspect-AD: An Expert-Annotated Anomaly Detection Dataset
 
-[Mila - Quebec AI Institute](https://mila.quebec/en/industry-services) & [Institut de recherche d'Hydro-Québec]()
+[Mila - Quebec AI Institute](https://mila.quebec/en/industry-services) & [Institut de recherche d'Hydro-Québec](https://www.hydroquebec.com/innovation/en/index.html)
 
 Akshatha Arodi\*, Margaux Luck\*, Jean-Luc Bedwani, Aldo Zaimi, Ge Li, Nicolas Pouliot, Julien Beaudry, Gaétan Marceau Caron
 
 \*Denotes equal contribution
 
-[[Paper]()] [[Project](https://mila-iqia.github.io/cableinspect-ad/#)] [[Dataset](https://drive.google.com/file/d/126i30i7dRkcf4E5k7x8yysay3Snv6NXv/view)] [[Bibtex]()]
+[[Paper]()] [[Project](https://mila-iqia.github.io/cableinspect-ad/#)] [[Dataset](https://hydroquebec.com/data/documents-donnees/donnees-ouvertes/zip/CableInspect-AD.zip)] [[Bibtex]()]
 
 The repository has the following structure.
 
@@ -33,20 +33,19 @@ cableinspect-ad-code/
 │   ├── cogvlm_ad.py                            # Inference script for CogVLM
 │   ├── llava13b_ad.py                          # Inference script for LLaVA-13B
 │   └── ...
-├── src/                                        
+├── src/
 │   ├── anomaly_detector/                       # Code for VLMs and WinCLIP
-│   │   ├── README.md                           # Documentation of the models
 │   │   ├── cogvlm_ad_inference.py              # Script to run CogVLM
 │   │   ├── llava_ad_inference.py               # Script to run LLaVA
 │   │   └── ...
 │   ├── enhanced-patchcore/                     # Code for Enhanced-PatchCore
 │   │   ├── README.md                           # Documentation of Enhanced-PatchCore
 │   │   ├── notebooks/                          # Notebooks for data visualization and results
-│   │   ├── postprocessing/                     # Script for postprocessing
-│   │   ├── tools/
-│   │   │   ├── hq_patchcore_kfold_kshot.sh     # Bash script for running the model
+│   │   ├── post_processing/                    # Script for postprocessing
+│   │   ├── experiments/tools/
+│   │   │   └── hq_patchcore_kfold_kshot.sh     # Bash script for running the model
 │   │   └── ...
-└── README.md                                   # This README file
+├── README.md                                   # This README file
 └── ...
 ```
 
@@ -62,50 +61,60 @@ cableinspect-ad-code/
 - [Results](#results)
 
 ## Dataset
-We provide code for the generation of labels and masks. After downloading the images and annotation files from the [project website](https://mila-iqia.github.io/cableinspect-ad/), follow the instructions [here](dataset/README.md).
+We provide code for generating labels and masks. After downloading the images and annotation files, follow the instructions in the [dataset README](dataset/README.md).
 
 ## Enhanced-PatchCore
 
-The instructions on installation and usage are provided [here](src/enhanced-patchcore/README.md). We also provide notebooks for results and dataset visualization.
+Instructions for installation and usage are provided in the [Enhanced-PatchCore README](src/enhanced-patchcore/README.md). We also provide notebooks for results and dataset visualization.
 
 ## Vision-Language Models
 
-We provide inference scripts to evaluate all the Vision-Language Models (VLMs) that we report in the paper. We also include WinCLIP in our evaluation and provide inference scripts.
+We provide inference scripts to evaluate all the Vision-Language Models (VLMs) reported in the paper. We also include WinCLIP in our evaluation and provide inference scripts.
 
 ### Installation
 
 To setup the environment:
+
 ```bash
 conda create -n ad_env python=3.10
 conda activate ad_env
 ```
+
 We need to set these environment variables before installing torch.
+
 ```bash
 envPath=$(conda info --envs | grep ad_env | awk '{print $NF}')
 export CUDA_HOME=$envPath
 ```
+
 Install cudatoolkit
+
 ```bash
 conda install nvidia/label/cuda-12.0.0::cuda-toolkit
 ```
+
 To verify the installation, run the following:
+
 ```bash
 nvcc --version
 ```
+
 Install the dependancies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 Then install the package:
+
 ```bash
 pip install -e .
 ```
 
 ### Pytest
+
 ```bash
 pip install pytest
-
 pytest tests/
 ```
 
@@ -117,7 +126,8 @@ pytest tests/
 python scripts/cogvlm_ad.py --data-path DATA_PATH --test-csv labels.csv --batch-size 4 --out-csv cables_cogvlm_zero_shot_inference.csv
 ```
 
-#### To compute the kfold threshold-dependent metrics (F1, FPR) of a VLM from its raw inference csv output
+#### To compute the kfold threshold-dependent metrics (F1 Score, FPR, Precision, Recall) of a VLM from its raw inference csv output
+
 ```bash 
 python scripts/get_kfold_metrics.py --vlm-csv PATH_TO_VLM_INFERENCE_OUTPUT --kfold-dir DATA_PATH/k_fold_labels --output-csv-filename cables_vlm_kfold_metrics.csv
 ```
@@ -134,15 +144,13 @@ We evaluate WinCLIP on detection and segmentation tasks and generate threshold-i
 
 ### WinCLIP Installation
 
-We install the [anomalib library](https://github.com/openvinotoolkit/anomalib/) to evaluate WinCLIP.
+We install the latest version of the [anomalib library](https://github.com/openvinotoolkit/anomalib/) to evaluate WinCLIP.
 
 To setup the environment:
+
 ```bash
 conda create -n winclip_env python=3.10
 conda activate winclip_env
-```
-
-```bash
 pip install anomalib
 anomalib install
 ```
@@ -150,12 +158,15 @@ anomalib install
 ### WinCLIP Usage
 
 Generate anomaly scores from WinCLIP using the script.
+
 ```bash
 export DATASET_PATH=$HOME/CableInspect-AD
 export RESULTS=$HOME/results
 python scripts/winclip_ad.py --dataset-path $DATASET_PATH --output-path $RESULTS
 ```
+
 ### Evaluation
+
 The metrics can be generated using the `scripts/evaluate.ipynb` notebook for all the VLMs and WinCLIP.
 
 To generate the AUPRO metric, we follow the method [here](https://github.com/caoyunkang/WinClip/blob/master/README.md)
@@ -175,4 +186,3 @@ Mean and standard deviation are calculated across all cables after averaging ove
 | CogVLM2-19B              | 0.66 ± 0.04           | **0.04 ± 0.01**          | **0.91 ± 0.02**          | **0.86 ± 0.03**         |
 | WinCLIP                  | -                     | -                        | 0.76 ± 0.06              | 0.70 ± 0.04             |
 | *Enhanced-PatchCore*     | 0.75 ± 0.03           | 0.55 ± 0.19              | 0.84 ± 0.06              | 0.78 ± 0.05             |
-

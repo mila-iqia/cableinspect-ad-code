@@ -24,7 +24,7 @@ pip install -r requirements/notebooks.txt
 
 ## CableInspect-Ad Dataset
 
-More details about the dataset can be found [here](https://mila-iqia.github.io/cableinspect-ad/).
+More details about the dataset can be found in [the project website](https://mila-iqia.github.io/cableinspect-ad/).
 
 Some notebooks have been developed to visualize locally this dataset. They can be found in the `notebooks` folder:
 
@@ -34,29 +34,21 @@ This notebook permits to visualize the original images and some relevant associa
 
 - `visualize_labels.ipynb`
 
-This notebook permits to visualize the labels and their statistics for the tight crop and tight crop imagette dataset.
+This notebook permits to visualize the labels and their statistics for the cropped version of the dataset.
 
 ## Dataloader
 
-Two files have been added in the `src/anomalib/data` folder for the PyTorch HQ cable dataset and dataloader:
+Two files have been added in the `src/anomalib/data` folder for the PyTorch CableInspect-AD dataset and dataloader:
 
 - `hq.py`
 
-In this file, the HQ cable dataset and dataloader classes are defined.
+In this file, the CableInspect-AD dataset and dataloader classes are defined.
 
 - `hq_utils.py`
 
-In this file, the functions to generate the different dataset splits are available (i.e.: IID, calibration, OOD, and, K-fold).
-
-**IID:** All cables can be used, and included cables are split into three non-overlapping regions - train, valid and test.
-
-**Calibration:** Labels are assigned such that there are regions for train and validation on historical cables and, train, validation and test on the calibration cable. The use of historical cables is optional.
-
-**OOD:** Labels are assigned such that there are separate cables for train, validation and test sets.
+In this file, the functions to generate the dataset splits are available. In the paper, we use the K-Fold splits.
 
 **K-Fold:** Labels are assigned based on an anomaly group position. First, we identify an anomaly group to indicate the beginning of the train set. First set of 'num_train' nominal frames immediately following the selected anomaly group position are assigned to the training set. Then, the next set of nominal frames are assigned to the validation set if requested (it is optional). Finally, all the remaining frames are assigned to the test set.
-
-We only use the K-Fold splits in the weakly supevised setting described below for the analysis.
 
 ## Experiments
 
@@ -64,7 +56,7 @@ The configuration files to reproduce the experiments are available in the folder
 
 - `experiments/configs/`
 
-The experiments can be run locally or on the cluster. The bash scripts are available in the folder:
+The bash script to run the experiments is in:
 
 - `experiments/tools/`
 
@@ -74,7 +66,7 @@ To run the following experiments, update the data location in the bash script if
 
 ## Enhanced-PatchCore
 
-The models are trained on the train set and the threshold is also set using the train set. The reporsitory contains code that is modified from the [anomalib repo](https://github.com/openvinotoolkit/anomalib)
+The models are trained on the train set and the threshold is also set using the train set. The repository contains code that is modified from the [anomalib repository](https://github.com/openvinotoolkit/anomalib).
 
 The bash scripts support the following experiments:
 

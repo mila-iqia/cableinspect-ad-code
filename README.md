@@ -11,7 +11,7 @@ Akshatha Arodi\*, Margaux Luck\*, Jean-Luc Bedwani, Aldo Zaimi, Ge Li, Nicolas P
 
 \*Denotes equal contribution
 
-[[Paper]()] [[Project](https://mila-iqia.github.io/cableinspect-ad/#)] [[Dataset](https://hydroquebec.com/data/documents-donnees/donnees-ouvertes/zip/CableInspect-AD.zip)] [[Bibtex]()]
+[[Project page](https://mila-iqia.github.io/cableinspect-ad/#)]
 
 The repository has the following structure.
 

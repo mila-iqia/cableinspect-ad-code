@@ -19,6 +19,58 @@ from mycolorpy import colorlist as mcp
 from sklearn import metrics
 
 
+def rotate(point: tuple, pivot_point: tuple, angle: float) -> tuple:
+    """2D clockwise rotation.
+
+    2D clockwise rotation of a point (x, y) around a pivot point (x_piv, y_piv)
+    given a specified angle in degrees.
+
+    Args:
+        point (tuple): Point (x, y) coordinates.
+        pivot_point (tuple): Pivot point (x_piv, y_piv) coordinates.
+        angle (float): Angle in degrees of the clockwise rotation.
+
+    Returns:
+       tuple: Rotated coordinates (x_rot, y_rot).
+    """
+    x, y = point  # pylint: disable=C0103
+    x_piv, y_piv = pivot_point
+    theta = np.radians(angle)
+    xrot = np.cos(theta) * (x - x_piv) - np.sin(theta) * (y - y_piv) + x_piv
+    yrot = np.sin(theta) * (x - x_piv) + np.cos(theta) * (y - y_piv) + y_piv
+    xrot = round(xrot.item(), 2)
+    yrot = round(yrot.item(), 2)
+    return (xrot, yrot)
+
+
+def compute_polygon_coordinates(bbox_coordinates: tuple) -> list:
+    """Compute polygon coordinates from bounding box coordinates.
+
+    Args:
+        bbox_coordinates (tuple): Bounding box coordinates.
+            Under the form: (x bottom left corner,
+                             y bottom left corner,
+                             width,
+                             height,
+                             clockwise rotation angle in degrees).
+
+    Returns:
+        polygon_coordinates (list): Ordered coordinates of the polygon.
+            Each tuple in the list represents the (x, y) coordinates of, in order,
+            bottom left, bottom right, upper right and upper left polygon corner.
+    """
+    x, y, width, height, rotation = bbox_coordinates  # pylint: disable=C0103
+    x_piv = x + width / 2
+    y_piv = y + height / 2
+    polygon_coordinates = [
+        rotate((x, y), (x_piv, y_piv), rotation),  # bottom left
+        rotate((x + width, y), (x_piv, y_piv), rotation),  # bottom right
+        rotate((x + width, y + height), (x_piv, y_piv), rotation),  # upper right
+        rotate((x, y + height), (x_piv, y_piv), rotation),  # upper left
+    ]
+    return polygon_coordinates
+
+
 def plot_cable_splits(samples: pd.DataFrame, exp_name: str, fontsize: int) -> None:
     """Plot cable splits.
 

@@ -11,7 +11,7 @@ fi
 # Load conda env
 conda activate cableinspect_ad
 
-# CableInspect-AD data directory
+# To be updated: CableInspect-AD data directory
 DATA_DIR=$HOME/CableInspect-AD
 
 # Copy CableInspect-AD into CableInspect-AD_cropped data directory

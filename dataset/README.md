@@ -35,12 +35,23 @@ CableInspect-AD
 
 ## Dataset Pre-processing
 
+To pre-process the dataset, create the following conda environment:
+
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda3
+conda update conda
+conda create -n cableinspect_ad python=3.10
+conda activate cableinspect_ad
+pip install -r dataset/requirements.txt
+```
+
 In the following instructions, we assume the dataset is stored in the `$HOME` directory.
 
 To prepare the dataset, run the following command from the `cableinspect-ad-code` root directory:
 
 ```bash
-bash dataset/tools/local/dataset.sh
+bash dataset/tools/dataset.sh
 ```
 
 This will create in the `CableInspect-AD` directory with the following structure:
@@ -70,15 +81,15 @@ CableInspect-AD
 
 Below is an example row of the `labels.csv` file:
 
-| image_path   | cable_id | side_id | pass_id | frame_id | anomaly_type_id | anomaly_type |  anomaly_grade | anomaly_id | label_index | mask_path   |
-| :----------- | :------- | :------ | ------: | -------: | --------------: | :----------- | -------------: | ---------: | :---------- |:----------- | 
-| <image_path> | C01      | A       |       1 |        0 |               7 | Deposit      | light          | 003_01     |           1 | <mask_path> |
+| image_path   | cable_id | side_id | pass_id | frame_id | bbox_area | bbox_x | bbox_y | bbox_width | bbox_height | bbox_rotation | anomaly_type_id | anomaly_type |  anomaly_grade | anomaly_id | label_index | mask_path   |
+| :----------- | :------- | :------ | ------: | -------: | ---------:| ------:| ------:| ---------: | ----------: | ------------: | --------------: | :----------- | -------------: | ---------: | :---------- |:----------- |
+| <image_path> | C01      | A       |       1 |        0 |  661.5496 | 240.32 | 691.39 |     26.98  |       24.52 |           0.0 |               7 | Deposit      | light          | 003_01     |           1 | <mask_path> |
 
 
 The `k_fold_labels` folder has the following structure:
 
 ```text
-<output-folder>
+k_fold_labels
 └── C01
     └── 2
         ├── label_cable-C01_num_k_shot-2_anomaly_id-0.csv
@@ -113,12 +124,18 @@ The `k_fold_labels` folder has the following structure:
     └── ...
 ```
 
+Below is an example row of the `label_cable-{cable_id}_num_k_shot-{num_k_shot}_anomaly_id-{anomaly_id}.csv` files:
+
+| cable_id | side_id | pass_id | image_path   | mask_path   | label_index | split |
+| :------- | :------ | ------: | :----------- | :---------- | :---------- | -----:|
+| C01      | A       |       1 | <image_path> | <mask_path> |           1 |  test |
+
 ## Cropped Version of the Dataset
 
 To prepare the cropped version of the dataset, run the following command from the `cableinspect-ad-code` root directory:
 
 ```bash
-bash dataset/tools/local/cropped_dataset.sh
+bash dataset/tools/cropped_dataset.sh
 ```
 
 This will create a `CableInspect-AD-cropped` folder with the same structure as the `CableInspect-AD` folder after preprocessing.

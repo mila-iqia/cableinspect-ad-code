@@ -1,0 +1,8 @@
+networkx
+numpy
+opencv-python
+pandas
+pillow
+pycocotools
+pyyaml
+tqdm
